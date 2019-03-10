@@ -9,7 +9,7 @@ class ShimmerView: UIView {
     private let percentageWidth: CGFloat
     private let duration: Double
     private let autoreverses: Bool
-    
+    private let isUserInteractionEnabled = false
     private enum Sort {
         case forward, reverse
     }
@@ -26,6 +26,7 @@ class ShimmerView: UIView {
         self.percentageWidth = settings.percentageWidth
         self.duration = settings.duration
         self.autoreverses = settings.autoreverses
+        self.isUserInteractionEnabled = settings.isUserInteractionEnabled
         
         super.init(frame: containerView.frame)
         
@@ -38,6 +39,10 @@ class ShimmerView: UIView {
     }
     
     internal func animate() {
+        if !isUserInteractionEnabled {
+            UIApplication.shared.beginIgnoringInteractionEvents()
+        }
+        
         UIView.transition(
             with: containerView,
             duration: 0.2,
@@ -52,6 +57,10 @@ class ShimmerView: UIView {
     }
     
     internal func stopAnimation() {
+        if !isUserInteractionEnabled {
+            UIApplication.shared.endIgnoringInteractionEvents()
+        }
+        
         UIView.transition(
             with: self,
             duration: 0.2,
