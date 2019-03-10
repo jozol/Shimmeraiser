@@ -9,7 +9,8 @@ class ShimmerView: UIView {
     private let percentageWidth: CGFloat
     private let duration: Double
     private let autoreverses: Bool
-    private let isUserInteractionEnabled = false
+    private let isUserInteractionEnabled: Bool
+    
     private enum Sort {
         case forward, reverse
     }
